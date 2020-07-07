@@ -1,7 +1,7 @@
 {
     "name": "eo/honeypot-bundle",
     "type": "symfony-bundle",
-    "description": "Honeypot trap for Symfony3 forms.",
+    "description": "Honeypot trap for Symfony5 forms.",
     "keywords": ["honeypot", "spam"],
     "license": "MIT",
     "authors": [
@@ -11,26 +11,18 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "~3.0|~4.0"
+        "symfony/framework-bundle": "^5.0"
     },
-    "require-dev": {
-        "eo/symfony-test-edition": "~3.0"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/iisisrael/symfony-test"
-        }
-    ],
     "target-dir": "Eo/HoneypotBundle",
     "autoload": {
         "psr-0": {
             "Eo\\HoneypotBundle": ""
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0.x-dev"
-        }
+    "require-dev": {
+        "nyholm/symfony-bundle-test": "^1.6",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+        "phpunit/phpunit": "^9.2",
+        "symfony/form": "^5.1"
     }
 }

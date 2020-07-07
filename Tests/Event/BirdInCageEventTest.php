@@ -4,8 +4,9 @@ namespace Eo\HoneypotBundle\Tests\Event;
 
 use Eo\HoneypotBundle\Document\HoneypotPrey;
 use Eo\HoneypotBundle\Event\BirdInCageEvent;
+use PHPUnit\Framework\TestCase;
 
-class BirdInCageEventTest extends \PHPUnit_Framework_TestCase
+class BirdInCageEventTest extends TestCase
 {
     public function testPrey()
     {

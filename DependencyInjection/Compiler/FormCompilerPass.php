@@ -24,10 +24,12 @@ class FormCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $resources = $container->getParameter('twig.form.resources');
-        if (in_array('@EoHoneypot/Form/div_layout.html.twig', $resources, true) === false) {
-            array_unshift($resources, '@EoHoneypot/Form/div_layout.html.twig');
-            $container->setParameter('twig.form.resources', $resources);
+        if ($container->has('twig.form.resources')) {
+            $resources = $container->getParameter('twig.form.resources');
+            if (in_array('@EoHoneypot/Form/div_layout.html.twig', $resources, true) === false) {
+                array_unshift($resources, '@EoHoneypot/Form/div_layout.html.twig');
+                $container->setParameter('twig.form.resources', $resources);
+            }
         }
     }
 }
