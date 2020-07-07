@@ -5,17 +5,18 @@ namespace Eo\HoneypotBundle\Tests\Form\Type;
 use Eo\HoneypotBundle\Events;
 use Eo\HoneypotBundle\Form\Type\HoneypotType;
 use Eo\HoneypotBundle\Model\HoneypotPrey;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
 
-class HoneypotTypeTest extends \PHPUnit_Framework_TestCase
+class HoneypotTypeTest extends TestCase
 {
     public $triggered;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->triggered = false;
     }
@@ -64,12 +65,12 @@ class HoneypotTypeTest extends \PHPUnit_Framework_TestCase
             $that->triggered = true;
         });
 
-        $factory = $this->getMock('Symfony\Component\Form\FormFactoryInterface');
+        $factory = $this->getMockForAbstractClass('Symfony\Component\Form\FormFactoryInterface');
 
         $builder = new FormBuilder('honeypot', null, $eventDispatcher, $factory);
 
         $type = new HoneypotType($requestStack, $honeypotManager, $eventDispatcher);
-        $type->buildForm($builder, array());
+        $type->buildForm($builder, array('causesError' => false));
 
         $parent = $this->getMockBuilder('Symfony\Component\Form\Form')
             ->disableOriginalConstructor()
@@ -79,7 +80,7 @@ class HoneypotTypeTest extends \PHPUnit_Framework_TestCase
         $form = $builder->getForm();
         $form->setParent($parent);
 
-        $eventDispatcher->dispatch(FormEvents::PRE_SUBMIT, new FormEvent($form, $data));
+        $eventDispatcher->dispatch(new FormEvent($form, $data), FormEvents::PRE_SUBMIT);
 
         $this->assertEquals($this->triggered, $trigger);
     }

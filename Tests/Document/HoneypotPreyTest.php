@@ -2,7 +2,9 @@
 
 namespace Eo\HoneypotBundle\Tests\Document;
 
-class HoneypotPreyTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class HoneypotPreyTest extends TestCase
 {
     public function testClass()
     {

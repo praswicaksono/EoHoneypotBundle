@@ -3,16 +3,24 @@
 namespace Eo\HoneypotBundle\Tests\DependencyInjection;
 
 use Eo\HoneypotBundle\DependencyInjection\Configuration;
+use Eo\HoneypotBundle\DependencyInjection\EoHoneypotExtension;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Config\Definition\Processor;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends AbstractExtensionTestCase
 {
+    protected function getContainerExtensions(): array
+    {
+        return [
+            new EoHoneypotExtension()
+        ];
+    }
+
     public function testDefaultConfig()
     {
-        $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration(), array());
+        $this->load();
 
-        $this->assertEquals(array(
+        $this->assertContainerBuilderHasParameter('eo_honeypot.options', [
             'redirect' => array(
                 'enabled' => false,
                 'url' => null,
@@ -30,6 +38,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'output' => '/var/log/honeypot.log'
                 )
             )
-        ), $config);
+        ]);
     }
 }
